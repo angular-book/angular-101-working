@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { DisplayingDataComponent, GuideComponent } from './components';
+import { ComponentCommunicationComponent, DisplayingDataComponent, GuideComponent } from './components';
 export const routes: Routes = [
     {
         path: 'guide',
@@ -9,6 +9,10 @@ export const routes: Routes = [
     {
         path: 'displaying-data',
         component: DisplayingDataComponent
+    },
+    {
+        path: 'component-communication',
+        component: ComponentCommunicationComponent
     },
     {
         path: '**',

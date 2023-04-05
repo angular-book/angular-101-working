@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
     </p>
     <ul>
       <li><a routerLink="/displaying-data">Displaying Data</a></li>
+      <li><a routerLink="/component-communication">Component Communication</a></li>
     </ul>
   `,
   styles: [

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { MastheadComponent } from './components/masthead/masthead.component';
+import { MastheadComponent, DisplayingDataComponent } from './components';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MastheadComponent],
+  imports: [MastheadComponent, DisplayingDataComponent],
   template: `
   <app-masthead />
   <main>
+    <app-displaying-data />
   </main>
   `,
   styles: [

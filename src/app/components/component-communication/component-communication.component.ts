@@ -20,15 +20,20 @@ import { CcDisplayObjComponent } from '../cc-display-obj/cc-display-obj.componen
     </div>
     <div>
       <pre>{{ friend | json }}</pre>
-      <app-cc-display-obj [friend]="friend" />
+      <app-cc-display-obj [friend]="friend" (locationChanged)="toggleFriendIsLocal($event)" />
+      <div class="notification" *ngIf="displayMessage">
+        <p>Location Changed!</p>
+      </div>
     </div>
   `,
   styles: [
+    ".notification { background-color: goldenrod; padding: 2rem; border: 2px solid black }"
   ]
 })
 export class ComponentCommunicationComponent {
   messageToDisplay = 'Angular is Rad';
   secondMessage = 'Touch Me!';
+  displayMessage = false;
   friend = {
     name: 'Karl',
     email: 'karl@aol.com',
@@ -36,5 +41,10 @@ export class ComponentCommunicationComponent {
   }
   doIt() {
     this.secondMessage = 'That tickles!';
+  }
+  toggleFriendIsLocal(local: boolean) {
+    this.friend.local = local;
+    this.displayMessage = true;
+    setTimeout(() => this.displayMessage = false, 3000);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-cc-display-obj[friend]',
@@ -16,8 +16,9 @@ import { CommonModule } from '@angular/common';
 })
 export class CcDisplayObjComponent {
   @Input() friend = { name: '', email: '', local: false }
+  @Output() locationChanged = new EventEmitter<boolean>();
 
   toggleLocal() {
-    this.friend.local = !this.friend.local;
+    this.locationChanged.emit(!this.friend.local);
   }
 }

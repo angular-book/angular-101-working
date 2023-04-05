@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   template: `
     <div>
       <p>{{friend.name}} {{friend.email}} {{friend.local}}</p>
-      <button (click)="toggleLocal()">Toggle Local</button>
+      <input type="checkbox" (click)="toggleLocal()" [checked]="friend.local" />
   </div>
   `,
   styles: [

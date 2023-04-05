@@ -9,7 +9,7 @@ import { ToggleDirective } from 'src/app/directives/toggle.directive';
   template: `
     <div>
       <p>{{friend.name}} {{friend.email}} {{friend.local}}</p>
-      <div appToggle>
+      <div appToggle intent="secondary">
         <input id="local" type="checkbox" (click)="toggleLocal()" [checked]="friend.local" />
         <label for="local">Toggle Local</label>
       </div>

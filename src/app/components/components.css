@@ -9,10 +9,17 @@
     text-indent: -9999px;
     width: 100px;
     height: 40px;
-    background: grey;
     display: block;
     border-radius: 50px;
     position: relative;
+}
+
+.toggle.primary label {
+    background: grey;
+}
+
+.toggle.secondary label {
+    background: red;
 }
 
 .toggle label:after {
@@ -26,6 +33,7 @@
     border-radius: 30px;
     transition: 0.3s;
 }
+
 
 .toggle input:checked+label {
     background: #bada55;

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { MastheadComponent, DisplayingDataComponent } from './components';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MastheadComponent, DisplayingDataComponent],
+  imports: [MastheadComponent, DisplayingDataComponent, RouterOutlet],
   template: `
   <app-masthead />
   <main>
-    <app-displaying-data />
+    <router-outlet />
   </main>
   `,
   styles: [

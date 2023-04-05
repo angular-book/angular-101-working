@@ -8,12 +8,12 @@ import { MastheadComponent } from './components/masthead/masthead.component';
   template: `
   <app-masthead />
   <main>
-    <h1>Angular!</h1>
   </main>
-    
   `,
-  styles: []
+  styles: [
+    "main {margin: 2em}"
+  ]
 })
 export class AppComponent {
-  title = 'frontend';
+
 }

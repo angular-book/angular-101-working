@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
   `,
   styles: [
     "h1 { font-size: 3em}",
-    ".sub { font-size: 1.5em }"
+    ".sub { font-size: 1.5em }",
+    "header { margin: 1em;}"
   ]
 })
 export class MastheadComponent {

@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
     <ul>
       <li><a routerLink="/displaying-data">Displaying Data</a></li>
       <li><a routerLink="/component-communication">Component Communication</a></li>
+      <li><a routerLink="/shows">Shows</a></li>
     </ul>
   `,
   styles: [

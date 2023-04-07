@@ -1,7 +1,7 @@
-export type Showitem = {
+export type ShowItem = {
     id: string;
     title: string;
     streamingPlatform: string;
 }
 
-export type ShowCreate = Omit<Showitem, 'id'>;
+export type ShowCreate = Omit<ShowItem, 'id'>;

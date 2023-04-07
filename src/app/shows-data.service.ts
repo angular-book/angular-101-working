@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, map, tap } from 'rxjs';
-import { ShowCreate, Showitem } from './models';
+import { ShowCreate, ShowItem } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ShowsDataService {
 
   private store: Store = {
     shows: [],
-    streamingServices: ['Disney+', 'HBO Max', 'Netflix', 'Amazon Prime']
+    streamingServices: []
   }
   private readonly subject = new BehaviorSubject<Store>(this.store);
   private loaded = false;
@@ -18,10 +18,15 @@ export class ShowsDataService {
   private readonly http = inject(HttpClient);
 
   constructor() {
-    this.loadData().pipe(
+    this.loadShowData().pipe(
       tap(data => this.store.shows = data),
       tap(() => this.subject.next(this.store))
     ).subscribe();
+    this.loadPlatformData().pipe(
+      tap(data => this.store.streamingServices = data),
+      tap(() => this.subject.next(this.store))
+    ).subscribe();
+
   }
 
   getShows() {
@@ -36,7 +41,7 @@ export class ShowsDataService {
   }
 
   addShow(value: ShowCreate) {
-    this.http.post<Showitem>('http://api.angular-book.com/shows', value)
+    this.http.post<ShowItem>('http://api.angular-book.com/shows', value)
       .pipe(
         tap(show => this.store.shows.unshift(show)),
         tap(() => this.subject.next(this.store))
@@ -44,8 +49,14 @@ export class ShowsDataService {
       .subscribe();
   }
 
-  private loadData() {
-    return this.http.get<{ _embedded: Showitem[] }>('http://api.angular-book.com/shows')
+  private loadShowData() {
+    return this.http.get<{ _embedded: ShowItem[] }>('http://api.angular-book.com/shows')
+      .pipe(
+        map(response => response._embedded)
+      )
+  }
+  private loadPlatformData() {
+    return this.http.get<{ _embedded: string[] }>('http://api.angular-book.com/platforms')
       .pipe(
         map(response => response._embedded)
       )
@@ -53,6 +64,6 @@ export class ShowsDataService {
 }
 
 type Store = {
-  shows: Showitem[],
+  shows: ShowItem[],
   streamingServices: string[]
 }

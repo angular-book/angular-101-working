@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShowsDataService } from 'src/app/shows-data.service';
+import { ShowsDataService, selectShows } from 'src/app/shows-data.service';
 
 @Component({
   selector: 'app-shows-list',
@@ -18,5 +18,5 @@ import { ShowsDataService } from 'src/app/shows-data.service';
 })
 export class ShowsListComponent {
   private readonly service = inject(ShowsDataService);
-  shows$ = this.service.getShows();
+  shows$ = this.service.query(selectShows)
 }

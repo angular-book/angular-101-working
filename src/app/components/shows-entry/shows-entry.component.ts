@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ShowsDataService } from 'src/app/shows-data.service';
+import { ShowsDataService, selectStreamingPlatforms } from 'src/app/shows-data.service';
 import { ShowCreate } from 'src/app/models';
 import { TitleStrategy } from '@angular/router';
 
@@ -29,7 +29,7 @@ import { TitleStrategy } from '@angular/router';
 })
 export class ShowsEntryComponent {
   private readonly service = inject(ShowsDataService);
-  readonly platforms$ = this.service.getStreamingPlatforms();
+  readonly platforms$ = this.service.query(selectStreamingPlatforms);
   form = new FormGroup({
     title: new FormControl(''),
     streamingPlatform: new FormControl('')

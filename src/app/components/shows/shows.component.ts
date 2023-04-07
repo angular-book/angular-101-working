@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ShowsEntryComponent } from "../shows-entry/shows-entry.component";
 import { ShowsListComponent } from "../shows-list/shows-list.component";
+import { ShowsDataService, selectNumberOfShows } from 'src/app/shows-data.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-shows',
   standalone: true,
   template: `
   <section>
+    <p>Number of Shows {{ numberOfShows$ | async }}</p>
       <div>
           <p class="heading">Shows</p>
           <app-shows-list />
@@ -25,5 +28,5 @@ import { ShowsListComponent } from "../shows-list/shows-list.component";
   imports: [CommonModule, ShowsEntryComponent, ShowsListComponent]
 })
 export class ShowsComponent {
-
+  numberOfShows$ = inject(ShowsDataService).query(selectNumberOfShows);
 }

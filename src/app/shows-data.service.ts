@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, OperatorFunction, map, tap } from 'rxjs';
 import { ShowCreate, ShowItem } from './models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShowsDataService {
+
 
   private store: Store = {
     shows: [],
@@ -28,16 +29,14 @@ export class ShowsDataService {
     ).subscribe();
 
   }
-
-  getShows() {
-    return this.subject
-      .asObservable().pipe(
-        map(s => s.shows)
-      )
+  query<Result>(selector: (s: Store) => Result) {
+    return this.subject.asObservable().pipe(map(selector));
   }
 
-  getStreamingPlatforms() {
-    return this.subject.asObservable().pipe(map(s => s.streamingServices))
+  notify(event: ShowEvents) {
+    if (event.type === 'added') {
+      this.addShow(event.payload);
+    }
   }
 
   addShow(value: ShowCreate) {
@@ -67,3 +66,23 @@ type Store = {
   shows: ShowItem[],
   streamingServices: string[]
 }
+
+interface Event {
+  type: string;
+}
+
+// Selectors
+export const selectShows = (s: Store) => s.shows;
+export const selectStreamingPlatforms = (s: Store) => s.streamingServices;
+export const selectNumberOfShows = (s: Store) => s.shows.length;
+
+// Actions
+export interface ShowAdded extends Event {
+  type: 'added'
+  payload: ShowCreate
+}
+export interface ShowRemoved extends Event {
+  type: 'removed'
+}
+
+export type ShowEvents = ShowAdded | ShowRemoved;

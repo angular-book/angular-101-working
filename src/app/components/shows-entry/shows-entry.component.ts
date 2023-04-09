@@ -33,7 +33,8 @@ import { map } from 'rxjs';
   </form>
   `,
   styles: [
-    ".error-display { color: red }" // why does THIS make my side by side flow break?
+
+    //  ".error-display { color: red }" // why does THIS make my side by side flow break?
   ]
 })
 export class ShowsEntryComponent {
@@ -55,13 +56,18 @@ export class ShowsEntryComponent {
   add(foci: HTMLInputElement) {
     if (this.form.valid) {
       const showCreate: ShowCreate = {
-        title: this.form.controls.title.value!,
-        streamingPlatform: this.form.controls.streamingPlatform.value!
+        title: this.form.controls.title.value,
+        streamingPlatform: this.form.controls.streamingPlatform.value
       }
       this.service.addShow(showCreate);
       this.form.reset();
       foci.focus();
+    } else {
+      // TODO: Make it so the validations run - this is always dumb. looking for a better way.
+      // do not want to disable the submit button.
     }
+
+
   }
 }
 
